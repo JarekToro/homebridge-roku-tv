@@ -5,11 +5,9 @@
   "schema": {
     "type": "object",
     "properties": {
-      "timeout": {
+      "pollingInterval": {
         "title": "Polling Interval (ms)",
         "type": "integer",
-        "minimum": 5000,
-        "maximum": 100000,
         "description": "How often to query the Roku Tv for power state and active app"
       }
     }

@@ -39,7 +39,7 @@ export class RokuAccessory extends BaseAccessory {
     this.configureInfoService();
     this.configureSpeakerService();
     this.configureTvService();
-    this.startPolling(this.platform.config.polling ?? pollingDefault);
+    this.startPolling(this.platform.config.pollingInterval ?? pollingDefault);
 
     // handle on / off events using the Active characteristic
   }
