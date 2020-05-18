@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "Roku Tv",
+  "pluginAlias": "RokuTv",
   "pluginType": "platform",
   "singular": true,
   "schema": {
