@@ -195,7 +195,12 @@ export class RokuAccessory extends BaseAccessory {
         if (app.rokuAppId === homeScreenActiveId) {
           await this.roku.command().keypress(HOME);
         } else {
-          await this.roku.launch(app.rokuAppId);
+          try {
+            await this.roku.launch(app.rokuAppId);
+          } catch (e) {
+            this.logger.error("Failed to launch app", e);
+            this.updatePowerAndApp();
+          }
         }
         callback(null);
       })
@@ -238,6 +243,8 @@ export class RokuAccessory extends BaseAccessory {
             ? this.Characteristic.Active.ACTIVE
             : this.Characteristic.Active.INACTIVE
         );
+
+        this.updatePowerAndApp();
 
         callback(null);
       })
@@ -310,6 +317,14 @@ export class RokuAccessory extends BaseAccessory {
       const isOn = info["powerMode"] === "PowerOn";
 
       this.logger.info(`Power State is: ${info["powerMode"]} ${isOn}`);
+      const isAlreadyON =
+        this.tvService.getCharacteristic(this.Characteristic.Active).value ===
+        this.Characteristic.Active.ACTIVE;
+
+      if (isOn == isAlreadyON) {
+        return;
+      }
+
       this.tvService.updateCharacteristic(
         this.Characteristic.Active,
         isOn
@@ -317,13 +332,7 @@ export class RokuAccessory extends BaseAccessory {
           : this.Characteristic.Active.INACTIVE
       );
     });
-    // this.tvService.linkedServices.forEach((s) => {
-    //   this.logger.info(
-    //     `input: ${s.displayName}; ID: ${
-    //       s.getCharacteristic(this.Characteristic.Identifier).value
-    //     }`
-    //   );
-    // });
+
     this.roku.active().then((app) => {
       const rokuId = app ? app.id : homeScreenActiveId;
       const mappedApp = this.rokuAppMap.getAppFromRokuId(rokuId);
