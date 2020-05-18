@@ -10,8 +10,9 @@ This is a plugin designed to give you Roku Tv fully integrated with the Home app
 Plugins that I could find for myself seemed to only have switches for all the actions when there is a Television Service that you can use. So with that goal in mind I set out to create this. Im fairly happy with the results.
 
 <span align="center">
+<img src="./.repo-assets/images/home-app-1.PNG" width="350">
+<img src="./.repo-assets/images/remote-app-1.PNG" width="350">
 
-[![Home App](./.repo-assets/images/home-app-1.PNG) ![Remote App](./.repo-assets/images/remote-app-1.PNG)
 
 </span>
 
