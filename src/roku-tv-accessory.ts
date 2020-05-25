@@ -22,7 +22,8 @@ export class RokuAccessory extends BaseAccessory {
   constructor(
     platform: RokuTvPlatform,
     accessory: PlatformAccessory,
-    private readonly device: RokuDevice
+    private readonly device: RokuDevice,
+    private readonly excludedApps: string[]
   ) {
     super(platform, accessory);
     this.roku = new Client(device.client.ip);
@@ -149,7 +150,9 @@ export class RokuAccessory extends BaseAccessory {
   }
 
   private configureAppInputs() {
-    const apps = this.rokuAppMap.getApps();
+    const apps = this.rokuAppMap
+      .getApps()
+      .filter((x) => !this.excludedApps.includes(x.name));
     apps.forEach((app) => {
       this.logger.info(
         `Adding Input ${app.name} with info ID: ${app.id}, TYPE: ${app.type}`
@@ -316,7 +319,7 @@ export class RokuAccessory extends BaseAccessory {
     this.roku.info().then((info) => {
       const isOn = info["powerMode"] === "PowerOn";
 
-      this.logger.info(`Power State is: ${info["powerMode"]} ${isOn}`);
+      this.logger.debug(`Power State is: ${info["powerMode"]} ${isOn}`);
       const isAlreadyON =
         this.tvService.getCharacteristic(this.Characteristic.Active).value ===
         this.Characteristic.Active.ACTIVE;
@@ -337,7 +340,7 @@ export class RokuAccessory extends BaseAccessory {
       const rokuId = app ? app.id : homeScreenActiveId;
       const mappedApp = this.rokuAppMap.getAppFromRokuId(rokuId);
 
-      this.logger.info(
+      this.logger.debug(
         `Active App is: ${mappedApp.name} ${mappedApp.id} ${mappedApp.rokuAppId}`
       );
 

@@ -5,7 +5,6 @@ import {
   DynamicPlatformPlugin,
   Logger,
   PlatformAccessory,
-  PlatformConfig,
   Service,
 } from "homebridge";
 
@@ -13,6 +12,12 @@ import { homeScreenActiveId, PLUGIN_NAME } from "./settings";
 import { Client } from "roku-client";
 import { App } from "roku-client/dist/client";
 import { RokuAccessory } from "./roku-tv-accessory";
+
+interface RokuTvPlatformConfig {
+  name?: string;
+  excludedApps?: string[];
+  pollingInterval?: number;
+}
 
 export class RokuTvPlatform implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
@@ -25,7 +30,7 @@ export class RokuTvPlatform implements DynamicPlatformPlugin {
 
   constructor(
     public readonly log: Logger,
-    public readonly config: PlatformConfig,
+    public readonly config: RokuTvPlatformConfig,
     public readonly api: API
   ) {
     this.log.debug("Finished initializing platform:", this.config.name);
@@ -90,14 +95,24 @@ export class RokuTvPlatform implements DynamicPlatformPlugin {
         existingAccessory.displayName
       );
 
-      new RokuAccessory(this, existingAccessory, deviceInfo);
+      new RokuAccessory(
+        this,
+        existingAccessory,
+        deviceInfo,
+        this.config.excludedApps ?? []
+      );
     } else {
       const accessory = new this.api.platformAccessory(
         deviceInfo.info.userDeviceName,
         uuid,
         Categories.TELEVISION
       );
-      new RokuAccessory(this, accessory, deviceInfo);
+      new RokuAccessory(
+        this,
+        accessory,
+        deviceInfo,
+        this.config.excludedApps ?? []
+      );
       this.accessoriesToPublish.push(accessory);
     }
   }

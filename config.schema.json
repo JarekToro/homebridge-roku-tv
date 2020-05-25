@@ -7,8 +7,17 @@
     "properties": {
       "pollingInterval": {
         "title": "Polling Interval (ms)",
-        "type": "integer",
-        "description": "How often to query the Roku Tv for power state and active app"
+        "description": "How often to query the Roku Tv for power state and active app",
+        "type": "integer"
+      },
+      "excludedApps": {
+        "title": "Apps To Exclude",
+        "description": "Enter the app's name that you want to hide",
+        "type": "array",
+        "items": {
+          "title": "App Name",
+          "type": "string"
+        }
       }
     }
   }
