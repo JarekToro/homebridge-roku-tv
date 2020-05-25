@@ -193,7 +193,7 @@ export class RokuAccessory extends BaseAccessory {
 
         this.logger.info(`set Active Input Source => ${app.name}`);
         if (app.rokuAppId === homeScreenActiveId) {
-          await this.roku.command().keypress(HOME);
+          await this.roku.command().keypress(HOME).send();
         } else {
           try {
             await this.roku.launch(app.rokuAppId);

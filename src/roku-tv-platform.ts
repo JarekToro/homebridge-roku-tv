@@ -9,7 +9,7 @@ import {
   Service,
 } from "homebridge";
 
-import { homeScreenActiveId, PLATFORM_NAME, PLUGIN_NAME } from "./settings";
+import { homeScreenActiveId, PLUGIN_NAME } from "./settings";
 import { Client } from "roku-client";
 import { App } from "roku-client/dist/client";
 import { RokuAccessory } from "./roku-tv-accessory";
@@ -70,9 +70,8 @@ export class RokuTvPlatform implements DynamicPlatformPlugin {
 
       this.withRokuAccessory(uuid, deviceInfo);
 
-      this.api.registerPlatformAccessories(
+      this.api.publishExternalAccessories(
         PLUGIN_NAME,
-        PLATFORM_NAME,
         this.accessoriesToPublish
       );
 
