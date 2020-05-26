@@ -1,7 +1,7 @@
 {
   "displayName": "Roku Tv HomeBridge",
   "name": "homebridge-roku-tv-plugin",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Full Roku Tv Support for HomeKit Television",
   "license": "Apache-2.0",
   "repository": {
