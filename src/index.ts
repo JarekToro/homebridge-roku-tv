@@ -7,5 +7,5 @@ import { RokuTvPlatform } from "./roku-tv-platform";
  * This method registers the platform with Homebridge
  */
 export = (api: API) => {
-  api.registerPlatform("homebridge-roku-tv", PLATFORM_NAME, RokuTvPlatform);
+  api.registerPlatform(PLUGIN_NAME, PLATFORM_NAME, RokuTvPlatform);
 };
