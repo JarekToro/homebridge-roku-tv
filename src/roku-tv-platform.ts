@@ -39,7 +39,7 @@ export class RokuTvPlatform implements DynamicPlatformPlugin {
       log.debug("Executed didFinishLaunching callback");
       this.discoverDevices()
         .then()
-        .catch((e) => this.log.error(e));
+        .catch((e) => this.log.debug(e));
     });
   }
 
