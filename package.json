@@ -6,10 +6,10 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git@github.com:JarekToro/homebridge-roku-tv.git"
+    "url": "https://github.com/traviswparker/homebridge-roku-tv.git"
   },
   "bugs": {
-    "url": "https://github.com/JarekToro/homebridge-roku-tv/issues"
+    "url": "https://github.com/traviswparker/homebridge-roku-tv/issues"
   },
   "engines": {
     "node": ">=10.17.0",
