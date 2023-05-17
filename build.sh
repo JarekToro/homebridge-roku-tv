@@ -10,7 +10,11 @@ fi
 npm run build --verbose || exit
 mkdir -p $DEST || exit
 for f in *; do
- 	if [ "$f" != "node_modules" ] && [ "$f" != "build.sh" ]; then 
+ 	if [ "$f" != "node_modules" ] && \
+           [ "$f" != "build.sh" ] && \
+           [ "$f" != "nodemon.json" ] && \
+           [ "$f" != "src" ]
+	then 
 		cp -rv $f $DEST
 	fi
 done
