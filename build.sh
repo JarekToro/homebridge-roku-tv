@@ -10,7 +10,7 @@ fi
 npm run build --verbose || exit
 mkdir -p $DEST || exit
 for f in *; do
- 	if [ "$f" != "node_modules" ]; then 
+ 	if [ "$f" != "node_modules" ] && [ "$f" != "build.sh" ]; then 
 		cp -rv $f $DEST
 	fi
 done
